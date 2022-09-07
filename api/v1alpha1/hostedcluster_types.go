@@ -114,6 +114,9 @@ const (
 	// removed when deleting the corresponding HostedCluster. If set to "true", resources created on the cloud provider during the life
 	// of the cluster will be removed, including image registry storage, ingress dns records, load balancers, and persistent storage.
 	CleanupCloudResourcesAnnotation = "hypershift.openshift.io/cleanup-cloud-resources"
+
+	// HostedClusterAnnotation is an annotation that indicates which HostedCluster an object corresponds to by namespace/name
+	HostedClusterAnnotation = "hypershift.openshift.io/cluster"
 )
 
 // HostedClusterSpec is the desired behavior of a HostedCluster.

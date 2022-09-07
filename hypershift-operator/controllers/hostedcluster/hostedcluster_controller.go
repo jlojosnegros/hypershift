@@ -105,7 +105,6 @@ import (
 
 const (
 	finalizer                      = "hypershift.openshift.io/finalizer"
-	HostedClusterAnnotation        = "hypershift.openshift.io/cluster"
 	clusterDeletionRequeueDuration = 5 * time.Second
 
 	// Image built from https://github.com/openshift/cluster-api/tree/release-1.0
@@ -1362,7 +1361,7 @@ func (r *HostedClusterReconciler) reconcile(ctx context.Context, req ctrl.Reques
 // will be mutated.
 func reconcileHostedControlPlane(hcp *hyperv1.HostedControlPlane, hcluster *hyperv1.HostedCluster) error {
 	hcp.Annotations = map[string]string{
-		HostedClusterAnnotation: client.ObjectKeyFromObject(hcluster).String(),
+		hyperv1.HostedClusterAnnotation: client.ObjectKeyFromObject(hcluster).String(),
 	}
 
 	// These annotations are copied from the HostedCluster
@@ -1817,7 +1816,7 @@ func (r *HostedClusterReconciler) reconcileControlPlaneOperator(ctx context.Cont
 		if podMonitor.Annotations == nil {
 			podMonitor.Annotations = map[string]string{}
 		}
-		podMonitor.Annotations[HostedClusterAnnotation] = client.ObjectKeyFromObject(hcluster).String()
+		podMonitor.Annotations[hyperv1.HostedClusterAnnotation] = client.ObjectKeyFromObject(hcluster).String()
 		hyperutil.ApplyClusterIDLabelToPodMonitor(&podMonitor.Spec.PodMetricsEndpoints[0], hcluster.Spec.ClusterID)
 		return nil
 	}); err != nil {
@@ -2350,7 +2349,7 @@ func reconcileCAPICluster(cluster *capiv1.Cluster, hcluster *hyperv1.HostedClust
 	}
 
 	cluster.Annotations = map[string]string{
-		HostedClusterAnnotation: client.ObjectKeyFromObject(hcluster).String(),
+		hyperv1.HostedClusterAnnotation: client.ObjectKeyFromObject(hcluster).String(),
 	}
 	cluster.Spec = capiv1.ClusterSpec{
 		ControlPlaneEndpoint: capiv1.APIEndpoint{},
@@ -2966,7 +2965,7 @@ func (r *HostedClusterReconciler) delete(ctx context.Context, hc *hyperv1.Hosted
 func enqueueParentHostedCluster(obj client.Object) []reconcile.Request {
 	var hostedClusterName string
 	if obj.GetAnnotations() != nil {
-		hostedClusterName = obj.GetAnnotations()[HostedClusterAnnotation]
+		hostedClusterName = obj.GetAnnotations()[hyperv1.HostedClusterAnnotation]
 	}
 	if hostedClusterName == "" {
 		return []reconcile.Request{}

@@ -583,7 +583,7 @@ func TestReconcileCAPICluster(t *testing.T) {
 			expectedCAPICluster: &v1beta1.Cluster{
 				ObjectMeta: metav1.ObjectMeta{
 					Annotations: map[string]string{
-						HostedClusterAnnotation: "master/cluster1",
+						hyperv1.HostedClusterAnnotation: "master/cluster1",
 					},
 					Namespace: "master-cluster1",
 					Name:      "cluster1",
@@ -641,7 +641,7 @@ func TestReconcileCAPICluster(t *testing.T) {
 			expectedCAPICluster: &v1beta1.Cluster{
 				ObjectMeta: metav1.ObjectMeta{
 					Annotations: map[string]string{
-						HostedClusterAnnotation: "master/cluster1",
+						hyperv1.HostedClusterAnnotation: "master/cluster1",
 					},
 					Namespace: "master-cluster1",
 					Name:      "cluster1",

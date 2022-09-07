@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
+	hyperv1 "github.com/openshift/hypershift/api/v1alpha1"
 	"github.com/openshift/hypershift/support/upsert"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -44,7 +45,7 @@ func TestCreateOrUpdateWithAnnotationFactory(t *testing.T) {
 					Name:      "foo",
 					Namespace: "bar",
 					Annotations: map[string]string{
-						HostedClusterAnnotation: annotationValue,
+						hyperv1.HostedClusterAnnotation: annotationValue,
 					},
 				},
 			},
@@ -74,8 +75,8 @@ func TestCreateOrUpdateWithAnnotationFactory(t *testing.T) {
 					Name:      "foo",
 					Namespace: "bar",
 					Annotations: map[string]string{
-						HostedClusterAnnotation: annotationValue,
-						"foo":                   "bar",
+						hyperv1.HostedClusterAnnotation: annotationValue,
+						"foo":                           "bar",
 					},
 				},
 			},

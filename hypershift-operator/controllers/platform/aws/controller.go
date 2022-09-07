@@ -28,7 +28,6 @@ import (
 	hyperv1 "github.com/openshift/hypershift/api/v1alpha1"
 	awsutil "github.com/openshift/hypershift/cmd/infra/aws/util"
 	"github.com/openshift/hypershift/control-plane-operator/controllers/hostedcontrolplane/manifests"
-	"github.com/openshift/hypershift/hypershift-operator/controllers/hostedcluster"
 	"github.com/openshift/hypershift/support/upsert"
 
 	"k8s.io/apimachinery/pkg/api/equality"
@@ -542,7 +541,7 @@ func (r *AWSEndpointServiceReconciler) hostedControlPlane(ctx context.Context, h
 }
 
 func hostedClusterNamespaceAndName(hcp *hyperv1.HostedControlPlane) (string, string) {
-	hcNamespaceName, exists := hcp.Annotations[hostedcluster.HostedClusterAnnotation]
+	hcNamespaceName, exists := hcp.Annotations[hyperv1.HostedClusterAnnotation]
 	if !exists {
 		return "", ""
 	}

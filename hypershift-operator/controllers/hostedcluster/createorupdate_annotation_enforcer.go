@@ -3,6 +3,7 @@ package hostedcluster
 import (
 	"context"
 
+	hyperv1 "github.com/openshift/hypershift/api/v1alpha1"
 	"github.com/openshift/hypershift/support/upsert"
 	crclient "sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/controller/controllerutil"
@@ -26,7 +27,7 @@ func createOrUpdateWithAnnotationFactory(upstream upsert.CreateOrUpdateProvider)
 				if annotations == nil {
 					annotations = map[string]string{}
 				}
-				annotations[HostedClusterAnnotation] = req.String()
+				annotations[hyperv1.HostedClusterAnnotation] = req.String()
 				obj.SetAnnotations(annotations)
 				return nil
 			}
